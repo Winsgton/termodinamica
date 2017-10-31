@@ -1,0 +1,2 @@
+# termodinamica
+algoritmo em c
