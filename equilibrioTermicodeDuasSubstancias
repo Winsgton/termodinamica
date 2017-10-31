@@ -1,0 +1,93 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct substancias{
+	char n[30]; // nome
+};
+
+struct substancias e[13] = {{"Chumbo"}, {"Tungstenio"},{"Prata"}, {"Cobre"},{"Aluminio"}, {"Latao"},{"Granito"},  // e = elemento
+	{"Vidro"}, {"Gelo(-10 C)"}, {"Mercurio"},{"Etanol"}, {"Agua do mar"},{"Agua doce"}};
+	
+void menu(){
+		printf("\n\n| Informe a primeira substancias a misturar: \n --------------------------------------------------------------------- \n| "
+    "1. %s       5. %s       9. %s       13. %s |\n| 2. %s   6. %s         10. %s                        |\n"
+    "| 3. %s        7. %s       11. %s                          |\n| 4. %s        8. %s         12. %s                     |\n"
+	" ---------------------------------------------------------------------\n| Substancia:  ", e[0].n, e[4].n, e[8].n, e[12].n, e[1].n, e[5].n, e[9].n, e[2].n,
+	e[6].n, e[10].n, e[3].n, e[7].n, e[11].n);
+}
+
+int main(void){
+   
+    float temp1=0, temp2=0, tempF=0, m1=0, m2=0;
+    int c[13]={128, 134, 236, 386, 900, 380, 790, 840, 2220, 140, 2430, 3900, 4180}, x=0, y=0, resp=0;
+    double fusao[13]={327.5, 3422, 962, 1085, 660.3, 900, 1715, 1250, 0, -39, -114, 0, 0 };
+    double ebulicao[13]={1744 , 5555 , 2050 , 2595, 2470 , 2727 , 2727 , 2727 , 100 , 356 , 78 , 100 , 100};
+    
+    while(resp == 0){
+    
+    	printf("Bem-Vindo!");
+		menu();
+    	scanf("%i",&x);
+    	while (x <=0 || x >13){
+    		printf("Informe uma substancia valida!\n");
+    		scanf("%i",&x);
+    		if(x> 0 && x <= 13){
+    			break;
+			}
+		}
+    	printf("| Informe a temperatura em Celsius: ");
+    	scanf("%f",&temp1);
+    	while ( (x== 9 && temp1 >0) || (x == 12 && temp1 <= 0 ) || (x == 13 && temp1 <= 0) ) {
+    		printf("Informacoes erradas! \nOBS: GELO NAO PODE SER > 0 E NEM AGUA <= 0\n ");
+  		  	scanf("%f",&temp1);
+    		if((x== 9 && temp1 <= 0) || (x == 12 && temp1 >  0 ) || (x == 13 && temp1 > 0)){
+    			break;
+			}
+		}
+    	printf("| Informe a massa da substancia em gramas: ");
+    	scanf("%f",&m1);
+    
+	
+		menu();
+    	scanf("%i",&y);
+    	while (y <=0 || y >13){
+    		printf("Informe uma substancia valida!\n");
+    		scanf("%i",&x);
+    		if(y> 0 && y <= 13){
+    			break;
+			}
+		}
+    	printf("| Informe a temperatura em Celsius: ");
+    	scanf("%f",&temp2);
+   		while ( (y== 9 && temp2 >0) || (y == 12 && temp2 <= 0 ) || (y == 13 && temp2 <= 0) ) {
+    		printf("Informacoes erradas! \nOBS: GELO NAO PODE SER > 0 E NEM AGUA <= 0\n ");
+    		scanf("%f",&temp2);
+    		if((y == 9 && temp2 <= 0) || (y == 12 && temp2 >  0 ) || (y == 13 && temp2 > 0)){
+    			break;
+			}
+		}
+    	printf("| Informe a massa da substancia em gramas: ");
+	    scanf("%f",&m2);
+	
+
+	 
+		tempF= ((m1* ((float)c[x-1]/4180)* temp1) + (m2* ((float)c[y-1]/4180)* temp2)) /((m1* ((float)c[x-1]/4180)) + (m2* ((float)c[y-1]/4180)));
+	
+		if(temp1<fusao[x-1]&&tempF>fusao[x-1] || temp2<ebulicao[y-1]&&tempF>ebulicao[y-1]){
+	    	printf("ERRO!!! OCORRERA MUDANCA DE FASE. \n\n\n");
+		}else{
+			printf("Temperatura final em Celcius: %.2f\n", tempF);
+			
+		}
+		resp++;
+		
+		printf("Deseja fazer outras medicoes?\n\n1. SIM\n2. NAO\n\n");
+		scanf("%d", &resp);
+		if(resp == 1){
+			resp = 0;
+		}
+		
+	}
+    system("pause");
+    return 0;
+}
